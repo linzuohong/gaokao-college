@@ -1,53 +1,59 @@
 import { motion } from "framer-motion";
 import "./GlassCard.css";
 
-/**
- * GlassCard - 玻璃态高校卡片
- * 毛玻璃效果 + 3D 悬浮 + 渐变边框光晕
- */
 const GlassCard = ({ university, index, onClick }) => {
-  const { code, name, city, type, tier, salary, score2024, dormitory } = university;
-
-  const tierColor = tier?.includes("211") ? "#f59e0b" : tier?.includes("双一流") ? "#f59e0b" : "#818cf8";
+  const { code, name, city, type, tier, score2024, salary, dormitory, history, liberalArts, color } = university;
 
   return (
     <motion.div
       className="glass-card"
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: index * 0.04 }}
-      whileHover={{ y: -6, transition: { duration: 0.2 } }}
+      initial={{ opacity: 0, y: 60, scale: 0.92 }}
+      whileInView={{ opacity: 1, y: 0, scale: 1 }}
+      viewport={{ once: true, margin: "-20px" }}
+      transition={{
+        duration: 0.6,
+        delay: index * 0.06,
+        ease: [0.25, 0.46, 0.45, 0.94],
+      }}
+      whileHover={{ y: -8, scale: 1.02, transition: { duration: 0.25 } }}
       onClick={() => onClick?.(university)}
-      style={{ "--accent": tierColor }}
+      style={{ "--accent": color }}
     >
-      {/* 顶部渐变光条 */}
       <div className="gc-shine" />
 
-      {/* 代码徽章 */}
+      {/* 头部 */}
       <div className="gc-header">
         <div className="gc-code-badge">
           <span className="gc-code">{code}</span>
         </div>
-        <span className="gc-tier" style={{ color: tierColor, borderColor: tierColor }}>
-          {tier}
-        </span>
+        <div className="gc-badges">
+          <span className="gc-tier" style={{ color, borderColor: color }}>{tier}</span>
+        </div>
       </div>
 
-      {/* 校名 */}
       <h3 className="gc-name">{name}</h3>
-
-      {/* 城市 & 类型 */}
       <p className="gc-meta">{city} · {type}</p>
 
-      {/* 关键数据 */}
-      <div className="gc-stats">
+      {/* 分数行 - 物理 + 历史并列 */}
+      <div className="gc-scores">
         {score2024?.physics && (
-          <div className="gc-stat">
-            <span className="gc-stat-val">{score2024.physics.min}</span>
-            <span className="gc-stat-label">物理/分</span>
+          <div className="gc-score-item">
+            <span className="gc-score-label">物理</span>
+            <span className="gc-score-val">{score2024.physics.min}<small>分</small></span>
+            <span className="gc-score-rank">#{score2024.physics.rank?.toLocaleString()}</span>
           </div>
         )}
+        {score2024?.history && (
+          <div className="gc-score-item">
+            <span className="gc-score-label">历史</span>
+            <span className="gc-score-val">{score2024.history.min}<small>分</small></span>
+            <span className="gc-score-rank">#{score2024.history.rank?.toLocaleString()}</span>
+          </div>
+        )}
+      </div>
+
+      {/* 薪酬 + 寝室 */}
+      <div className="gc-stats">
         {salary?.avg && (
           <div className="gc-stat">
             <span className="gc-stat-val">¥{Math.round(salary.avg / 1000)}k</span>
@@ -56,15 +62,22 @@ const GlassCard = ({ university, index, onClick }) => {
         )}
         {dormitory?.rating && (
           <div className="gc-stat">
-            <span className="gc-stat-val">
-              {"★".repeat(Math.floor(dormitory.rating))}{"☆".repeat(5 - Math.floor(dormitory.rating))}
+            <span className="gc-stat-val dorm">
+              {"★".repeat(Math.floor(dormitory.rating))}
             </span>
             <span className="gc-stat-label">寝室</span>
           </div>
         )}
       </div>
 
-      {/* hover 发光边框 */}
+      {/* 一句话特色 或 文科提示 */}
+      {liberalArts && (
+        <div className="gc-liberal">
+          <span className="gc-liberal-icon">📖</span>
+          <span className="gc-liberal-text">{liberalArts.slice(0, 45)}...</span>
+        </div>
+      )}
+
       <div className="gc-glow-border" />
     </motion.div>
   );

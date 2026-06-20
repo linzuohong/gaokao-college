@@ -1,130 +1,61 @@
 .glass-card {
   position: relative;
-  background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.06);
-  border-radius: 20px;
-  padding: 24px 22px 20px;
-  cursor: pointer;
-  overflow: hidden;
+  background: linear-gradient(145deg, rgba(255,255,255,0.025) 0%, rgba(255,255,255,0.008) 100%);
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px; padding: 22px 20px 18px;
+  cursor: pointer; overflow: hidden;
   transition: border-color 0.3s, box-shadow 0.3s;
+  will-change: transform;
 }
 
 .glass-card:hover {
-  border-color: rgba(255,255,255,0.12);
-  box-shadow:
-    0 20px 50px -20px rgba(0,0,0,0.5),
-    0 0 30px rgba(99,102,241,0.06);
+  border-color: rgba(255,255,255,0.1);
+  box-shadow: 0 24px 50px -20px rgba(0,0,0,0.5), 0 0 40px rgba(99,102,241,0.05);
 }
 
-/* 顶部渐变光条 */
 .gc-shine {
-  position: absolute;
-  top: 0;
-  left: 20%;
-  right: 20%;
-  height: 1px;
+  position: absolute; top: 0; left: 20%; right: 20%; height: 1px;
   background: linear-gradient(90deg, transparent, var(--accent, #6366f1), transparent);
-  opacity: 0.4;
-  transition: opacity 0.3s;
+  opacity: 0.35; transition: opacity 0.3s;
 }
+.glass-card:hover .gc-shine { opacity: 0.7; }
 
-.glass-card:hover .gc-shine {
-  opacity: 0.8;
-}
+.gc-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+.gc-code-badge { width: 44px; height: 44px; border-radius: 12px; background: rgba(99,102,241,0.08); border: 1px solid rgba(99,102,241,0.15); display: flex; align-items: center; justify-content: center; }
+.gc-code { font-family: "JetBrains Mono", monospace; font-size: 0.82rem; font-weight: 800; color: #a5b4fc; letter-spacing: 1px; }
+.gc-badges { display: flex; gap: 6px; }
+.gc-tier { font-size: 0.62rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; border: 1px solid; letter-spacing: 0.5px; }
 
-/* 头部：代码+层次 */
-.gc-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 16px;
-}
+.gc-name { font-size: 0.95rem; font-weight: 700; color: #e2e8f0; margin: 0 0 4px; line-height: 1.3; }
+.gc-meta { font-size: 0.7rem; color: #64748b; margin: 0 0 14px; }
 
-.gc-code-badge {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  border-radius: 14px;
-  background: rgba(99,102,241,0.1);
-  border: 1px solid rgba(99,102,241,0.2);
-}
+/* 双列分数 */
+.gc-scores { display: flex; gap: 12px; margin-bottom: 14px; }
+.gc-score-item { flex: 1; background: rgba(15,18,35,0.5); border-radius: 10px; padding: 8px 10px; text-align: center; border: 1px solid rgba(99,102,241,0.06); }
+.gc-score-label { display: block; font-size: 0.6rem; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+.gc-score-val { font-size: 1rem; font-weight: 800; color: #e2e8f0; font-family: "JetBrains Mono", monospace; }
+.gc-score-val small { font-size: 0.6rem; color: #94a3b8; }
+.gc-score-rank { display: block; font-size: 0.6rem; color: #818cf8; margin-top: 1px; }
 
-.gc-code {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 0.9rem;
-  font-weight: 800;
-  color: #a5b4fc;
-  letter-spacing: 1px;
-}
+/* 薪酬 + 寝室行 */
+.gc-stats { display: flex; gap: 16px; margin-bottom: 12px; }
+.gc-stat { display: flex; flex-direction: column; gap: 2px; }
+.gc-stat-val { font-size: 0.8rem; font-weight: 700; color: #c7d2fe; font-family: "JetBrains Mono", monospace; }
+.gc-stat-val.dorm { color: #f59e0b; font-size: 0.7rem; letter-spacing: 1px; }
+.gc-stat-label { font-size: 0.6rem; color: #475569; text-transform: uppercase; letter-spacing: 0.5px; }
 
-.gc-tier {
-  font-size: 0.68rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 999px;
-  border: 1px solid;
-  letter-spacing: 0.5px;
-}
+/* 文科特色 */
+.gc-liberal { display: flex; align-items: flex-start; gap: 6px; background: rgba(139,92,246,0.04); border-radius: 8px; padding: 8px 10px; border: 1px solid rgba(139,92,246,0.08); }
+.gc-liberal-icon { font-size: 0.7rem; flex-shrink: 0; }
+.gc-liberal-text { font-size: 0.65rem; color: #a5b4fc; line-height: 1.5; }
 
-/* 校名 */
-.gc-name {
-  font-size: 1rem;
-  font-weight: 700;
-  color: #e2e8f0;
-  margin: 0 0 6px;
-  line-height: 1.4;
-}
-
-/* 元信息 */
-.gc-meta {
-  font-size: 0.75rem;
-  color: #64748b;
-  margin: 0 0 18px;
-}
-
-/* 数据行 */
-.gc-stats {
-  display: flex;
-  gap: 14px;
-}
-
-.gc-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.gc-stat-val {
-  font-size: 0.85rem;
-  font-weight: 700;
-  color: #c7d2fe;
-  font-family: "JetBrains Mono", monospace;
-}
-
-.gc-stat-label {
-  font-size: 0.65rem;
-  color: #475569;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-}
-
-/* hover 发光边框 */
 .gc-glow-border {
-  position: absolute;
-  inset: 0;
-  border-radius: 20px;
-  border: 1.5px solid transparent;
-  opacity: 0;
-  transition: opacity 0.3s;
-  pointer-events: none;
+  position: absolute; inset: 0; border-radius: 20px; border: 1.5px solid transparent;
+  opacity: 0; transition: opacity 0.3s; pointer-events: none;
 }
+.glass-card:hover .gc-glow-border { opacity: 1; border-color: rgba(99,102,241,0.12); box-shadow: inset 0 0 30px rgba(99,102,241,0.02); }
 
-.glass-card:hover .gc-glow-border {
-  opacity: 1;
-  border-color: rgba(99,102,241,0.15);
-  box-shadow: inset 0 0 30px rgba(99,102,241,0.03);
+@media (max-width: 600px) {
+  .gc-scores { flex-direction: column; gap: 8px; }
 }

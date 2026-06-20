@@ -3,7 +3,7 @@ import "./DetailPanel.css";
 
 const DetailPanel = ({ university, onClose }) => {
   if (!university) return null;
-  const { name, code, city, type, tier, score2024, salary, dormitory, tags } = university;
+  const { name, code, city, type, tier, score2024, salary, dormitory, tags, history, liberalArts, color } = university;
 
   return (
     <motion.div
@@ -84,6 +84,22 @@ const DetailPanel = ({ university, onClose }) => {
             )}
           </div>
         </section>
+
+        {/* 大学简介 */}
+        {history && (
+          <section className="dp-section">
+            <h3 className="dp-section-title">🏛️ 大学简介</h3>
+            <p className="dp-history">{history}</p>
+          </section>
+        )}
+
+        {/* 文科特色 */}
+        {liberalArts && (
+          <section className="dp-section">
+            <h3 className="dp-section-title">📖 文科优势</h3>
+            <p className="dp-liberal">{liberalArts}</p>
+          </section>
+        )}
 
         {/* 薪酬 + 寝室 */}
         <div className="dp-grid-2">
