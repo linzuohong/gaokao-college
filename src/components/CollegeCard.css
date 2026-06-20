@@ -1,0 +1,117 @@
+.college-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 28px 20px 24px;
+  border-radius: 16px;
+  background: linear-gradient(
+    145deg,
+    rgba(30, 41, 59, 0.85),
+    rgba(15, 23, 42, 0.9)
+  );
+  border: 1px solid rgba(99, 102, 241, 0.12);
+  backdrop-filter: blur(12px);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.card-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    var(--glow-color, #6366f1) 0%,
+    transparent 70%
+  );
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.card-halo-wrapper {
+  position: relative;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1;
+}
+
+.card-code-circle {
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: rgba(15, 23, 42, 0.95);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-code {
+  font-size: 1.1rem;
+  font-weight: 800;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  color: #c7d2fe;
+  letter-spacing: 1px;
+}
+
+.card-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  text-align: center;
+  margin: 0;
+  z-index: 1;
+  line-height: 1.4;
+  min-height: 2.8rem;
+  display: flex;
+  align-items: center;
+}
+
+.card-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  color: #64748b;
+  z-index: 1;
+}
+
+.card-divider {
+  color: #334155;
+}
+
+.card-tier {
+  font-size: 0.7rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid;
+  z-index: 1;
+  letter-spacing: 0.5px;
+}
+
+/* hover 瞄准框 */
+.card-focus-overlay {
+  position: absolute;
+  inset: 6px;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.card-corner {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-color: #818cf8;
+  border-style: solid;
+  filter: drop-shadow(0 0 4px #818cf8aa);
+}
+
+.card-corner.tl { top: 0; left: 0;   border-width: 2px 0 0 2px; border-radius: 3px 0 0 0; }
+.card-corner.tr { top: 0; right: 0;  border-width: 2px 2px 0 0; border-radius: 0 3px 0 0; }
+.card-corner.bl { bottom: 0; left: 0; border-width: 0 0 2px 2px; border-radius: 0 0 0 3px; }
+.card-corner.br { bottom: 0; right: 0;border-width: 0 2px 2px 0; border-radius: 0 0 3px 0; }

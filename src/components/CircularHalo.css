@@ -1,0 +1,58 @@
+.circular-halo {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: box-shadow 0.5s ease;
+}
+
+.circular-halo.halo-active {
+  box-shadow: 0 0 30px var(--ring-color, #6366f1)33;
+}
+
+.halo-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: var(--ring-width, 2px) solid transparent;
+  border-top-color: var(--ring-color, #6366f1);
+  border-right-color: var(--ring-color, #6366f1)55;
+  animation: halo-rotate 8s linear infinite;
+  pointer-events: none;
+}
+
+.halo-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px solid var(--ring-color, #6366f1)44;
+  animation: halo-pulse 2s ease-out infinite;
+  pointer-events: none;
+}
+
+.halo-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+@keyframes halo-rotate {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes halo-pulse {
+  0% {
+    transform: scale(0.9);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}

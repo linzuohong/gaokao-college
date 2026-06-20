@@ -1,0 +1,307 @@
+/* ========== 外层舞台 ========== */
+.orbital-stage {
+  position: relative;
+  width: 800px;
+  height: 800px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ========== 标志环容器 ========== */
+.token-ring-wrapper {
+  position: relative;
+  width: 800px;
+  height: 800px;
+  will-change: transform;
+}
+
+/* ========== SVG 标志环轨道 ========== */
+.token-ring-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ========== 闪光扫过轨道 ========== */
+.track-shine-sweep {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  pointer-events: none;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(199, 210, 254, 0.08) 2%,
+    transparent 4%,
+    transparent 100%
+  );
+  -webkit-mask: radial-gradient(
+    circle,
+    transparent 82%,
+    #000 83%,
+    #000 87%,
+    transparent 88%
+  );
+  mask: radial-gradient(
+    circle,
+    transparent 82%,
+    #000 83%,
+    #000 87%,
+    transparent 88%
+  );
+  animation: track-shine 5s linear infinite;
+}
+
+@keyframes track-shine {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* ========== 令牌项 ========== */
+.token-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 70px;
+  height: 70px;
+  margin: -35px 0 0 -35px;
+  transform: translate(var(--tx), var(--ty));
+  cursor: pointer;
+  z-index: 2;
+  transition: filter 0.4s ease;
+}
+
+.token-blurred {
+  filter: blur(3.5px) brightness(0.6);
+}
+
+.token-focused {
+  filter: blur(0px) brightness(1.2);
+  z-index: 20;
+}
+
+/* ========== 令牌主体 ========== */
+.token-body {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 令牌外环（轨道接触面） */
+.token-outer-ring {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid rgba(139, 92, 246, 0.25);
+  transition: all 0.3s ease;
+}
+
+.token-focused .token-outer-ring {
+  border-color: rgba(139, 92, 246, 0.7);
+  box-shadow:
+    0 0 20px rgba(139, 92, 246, 0.35),
+    0 0 40px rgba(99, 102, 241, 0.2);
+  inset: -10px;
+}
+
+/* 令牌旋转光环 */
+.token-halo-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1.5px solid transparent;
+  border-top-color: rgba(139, 92, 246, 0.5);
+  border-right-color: rgba(99, 102, 241, 0.25);
+  animation: halo-spin 3s linear infinite;
+}
+
+.token-focused .token-halo-ring {
+  border-top-color: rgba(199, 210, 254, 0.9);
+  border-right-color: rgba(139, 92, 246, 0.6);
+  border-width: 2px;
+}
+
+@keyframes halo-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+/* 令牌核心 */
+.token-core {
+  position: relative;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(30, 41, 59, 0.95),
+    rgba(12, 18, 30, 0.98)
+  );
+  border: 1.5px solid rgba(99, 102, 241, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow:
+    0 2px 12px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+/* 令牌核心金属涂料效果 */
+.token-core::before {
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0%,
+    rgba(139, 92, 246, 0.08) 15%,
+    transparent 30%,
+    rgba(99, 102, 241, 0.12) 45%,
+    transparent 60%,
+    rgba(139, 92, 246, 0.08) 75%,
+    transparent 90%
+  );
+  animation: core-shine 4s linear infinite;
+}
+
+@keyframes core-shine {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.token-focused .token-core {
+  border-color: rgba(139, 92, 246, 0.7);
+  transform: scale(1.2);
+  background: radial-gradient(
+    circle at 40% 35%,
+    rgba(45, 55, 90, 0.95),
+    rgba(20, 28, 50, 0.98)
+  );
+  box-shadow:
+    0 4px 24px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(139, 92, 246, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* 令牌代码 */
+.token-code {
+  position: relative;
+  z-index: 1;
+  font-family: "JetBrains Mono", "Fira Code", monospace;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #a5b4fc;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.token-focused .token-code {
+  color: #e0e7ff;
+  text-shadow: 0 0 15px rgba(165, 180, 252, 0.6);
+  font-size: 1.05rem;
+}
+
+/* ========== TrueFocus 四角瞄准框 ========== */
+.token-focus-frame {
+  position: absolute;
+  inset: -18px;
+  pointer-events: none;
+  z-index: 5;
+}
+
+.tc {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-color: #a5b4fc;
+  border-style: solid;
+  filter:
+    drop-shadow(0 0 8px #a5b4fc)
+    drop-shadow(0 0 2px #818cf8);
+}
+
+.tl { top: 0;  left: 0;   border-width: 2.5px 0 0 2.5px; border-radius: 4px 0 0 0; }
+.tr { top: 0;  right: 0;  border-width: 2.5px 2.5px 0 0; border-radius: 0 4px 0 0; }
+.bl { bottom: 0; left: 0;  border-width: 0 0 2.5px 2.5px; border-radius: 0 0 0 4px; }
+.br { bottom: 0; right: 0; border-width: 0 2.5px 2.5px 0; border-radius: 0 0 4px 0; }
+
+/* ========== 聚焦详情浮层 ========== */
+.token-detail {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  pointer-events: none;
+  white-space: nowrap;
+  margin-top: 62px;
+}
+
+.td-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  text-shadow: 0 0 20px rgba(139, 92, 246, 0.5);
+}
+
+.td-info {
+  font-size: 0.7rem;
+  color: #818cf8;
+  font-weight: 500;
+}
+
+/* ========== 响应式 ========== */
+@media (max-width: 860px) {
+  .orbital-stage {
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .token-ring-wrapper {
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .token-ring-svg {
+    width: 100vw;
+    height: 100vw;
+  }
+
+  .token-item {
+    width: 52px;
+    height: 52px;
+    margin: -26px 0 0 -26px;
+  }
+
+  .token-core {
+    width: 42px;
+    height: 42px;
+  }
+
+  .token-code {
+    font-size: 0.7rem;
+  }
+
+  .td-name {
+    font-size: 0.7rem;
+  }
+
+  .td-info {
+    font-size: 0.6rem;
+  }
+
+  .token-detail {
+    margin-top: 46px;
+  }
+}

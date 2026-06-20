@@ -1,0 +1,130 @@
+.glass-card {
+  position: relative;
+  background: linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 20px;
+  padding: 24px 22px 20px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.glass-card:hover {
+  border-color: rgba(255,255,255,0.12);
+  box-shadow:
+    0 20px 50px -20px rgba(0,0,0,0.5),
+    0 0 30px rgba(99,102,241,0.06);
+}
+
+/* 顶部渐变光条 */
+.gc-shine {
+  position: absolute;
+  top: 0;
+  left: 20%;
+  right: 20%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--accent, #6366f1), transparent);
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.glass-card:hover .gc-shine {
+  opacity: 0.8;
+}
+
+/* 头部：代码+层次 */
+.gc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.gc-code-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: rgba(99,102,241,0.1);
+  border: 1px solid rgba(99,102,241,0.2);
+}
+
+.gc-code {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #a5b4fc;
+  letter-spacing: 1px;
+}
+
+.gc-tier {
+  font-size: 0.68rem;
+  font-weight: 600;
+  padding: 3px 10px;
+  border-radius: 999px;
+  border: 1px solid;
+  letter-spacing: 0.5px;
+}
+
+/* 校名 */
+.gc-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  margin: 0 0 6px;
+  line-height: 1.4;
+}
+
+/* 元信息 */
+.gc-meta {
+  font-size: 0.75rem;
+  color: #64748b;
+  margin: 0 0 18px;
+}
+
+/* 数据行 */
+.gc-stats {
+  display: flex;
+  gap: 14px;
+}
+
+.gc-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.gc-stat-val {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #c7d2fe;
+  font-family: "JetBrains Mono", monospace;
+}
+
+.gc-stat-label {
+  font-size: 0.65rem;
+  color: #475569;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* hover 发光边框 */
+.gc-glow-border {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  border: 1.5px solid transparent;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+
+.glass-card:hover .gc-glow-border {
+  opacity: 1;
+  border-color: rgba(99,102,241,0.15);
+  box-shadow: inset 0 0 30px rgba(99,102,241,0.03);
+}
