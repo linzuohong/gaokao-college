@@ -1,7 +1,6 @@
 import { useState, useMemo, useEffect } from "react";
 import { AnimatePresence } from "framer-motion";
 import Lenis from "@studio-freight/lenis";
-import Starfield from "./components/Starfield";
 import GlassCard from "./components/GlassCard";
 import DetailPanel from "./components/DetailPanel";
 import universities, { cityGroups } from "./data/universities";
@@ -31,15 +30,14 @@ function App() {
   }, [activeTab]);
 
   const stats = useMemo(() => ({
-    total: universities.length, cities: cityGroups.length,
-    avgSalary: Math.round(universities.reduce((s,u) => s+(u.salary?.avg||7000),0)/universities.length),
-    maxScore: Math.max(...universities.map(u => u.score2024?.physics?.min||0)),
+    total: universities.length,
+    cities: cityGroups.length,
   }), []);
 
   return (
     <div className="app">
-      <Starfield count={60} speed={0.15} />
-      <div className="ambient-glow glow-1" /><div className="ambient-glow glow-2" />
+      {/* ColorBends 风格纯色渐变背景 */}
+      <div className="cb-bg" />
 
       <header className="topbar">
         <div className="topbar-inner">
@@ -56,26 +54,21 @@ function App() {
         <div className="hero-content">
           <p className="hero-eyebrow">2025 · 江西高考志愿填报</p>
           <h1 className="hero-title">探索<em>六座城市</em>的<em>星辰大海</em></h1>
-          <p className="hero-desc">福州 · 厦门 · 南京 · 上海 · 武汉 · 长沙——25所高校，录取数据、薪酬水平、文科优势、寝室条件，助你精准择校。</p>
-        </div>
-        <div className="hero-stats">
-          {[{label:"高校",value:stats.total},{label:"城市",value:stats.cities},{label:"平均月薪",value:`¥${Math.round(stats.avgSalary/1000)}k`},{label:"最高录取",value:`${stats.maxScore}分`}].map(s=>(
-            <div key={s.label} className="hero-stat"><span className="hero-stat-val">{s.value}</span><span className="hero-stat-label">{s.label}</span></div>
-          ))}
+          <p className="hero-desc">福州·厦门·南京·上海·武汉·长沙——{stats.total}所本科院校全覆盖，一本二本皆有。</p>
         </div>
         <div className="scroll-hint"><span className="scroll-line"/><span className="scroll-text">向下探索</span></div>
       </section>
 
       <section className="filter-section">
         <div className="filter-bar">
-          {["全部",...cityGroups.map(g=>g.city),"985/双一流","211/双一流","省重点"].map(t=>(
+          {["全部",...cityGroups.map(g=>g.city),"985/双一流","211/双一流","省重点","双一流","民办","独立学院"].map(t=>(
             <button key={t} className={`filter-chip ${activeTab===t?"active":""}`} onClick={()=>setActiveTab(t)}>{t}</button>
           ))}
         </div>
         <p className="filter-count"><strong>{filtered.length}</strong> 所院校</p>
       </section>
 
-      {(["全部","省重点"].includes(activeTab)) ? cityGroups.map(group=>{
+      {(["全部","省重点","民办","独立学院"].includes(activeTab)) ? cityGroups.map(group=>{
         const unis = activeTab==="全部"?group.unis:group.unis.filter(u=>u.tier===activeTab);
         if(!unis.length) return null;
         return (
